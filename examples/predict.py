@@ -16,14 +16,14 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 train_df = pd.read_csv('../data/bace.csv')
-df = pd.read_csv('../data/TRPA1_for_evaluation.csv', dtype={0: str})
+df = pd.read_csv('../data/TRPA1_for_evaluation.csv', dtype={0: str}) #dummy test set
 
-batch_size = 42
+batch_size = 155
 epochs = 150
-hidden_channels = 249
-dropout_rate = 0.27
+hidden_channels = 217
+dropout_rate = 0.26
 lr = 1e-3
-node_block = "ABMP"
+node_block = "ABMP+SN" #Options: BMP, ABMP, CBMP or BMP+SN
 input_dir = "evaluate_model_outputs"
 os.makedirs(input_dir, exist_ok=True)
 

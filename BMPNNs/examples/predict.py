@@ -15,8 +15,10 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger(__name__)
-train_df = pd.read_csv('../data/bace.csv')
-df = pd.read_csv('../data/TRPA1_for_evaluation.csv', dtype={0: str}) #dummy test set
+import time
+start = time.time()
+train_df = pd.read_csv('../data/TRPA1_for_training.csv')
+df = pd.read_csv('../data/bace.csv', dtype={0: str}) #dummy test set
 
 batch_size = 155
 epochs = 150
@@ -80,3 +82,6 @@ smiles_list = df['SMILES'].tolist()
 compounds_list = df['Title'].tolist()
 output_csv_path = 'predictions.csv'
 results = trainer.predict(smiles_list, compounds_list, output_csv_path)
+end = time.time()
+elapsed = end - start
+print(f"Elapsed time: {elapsed:.2f} seconds")

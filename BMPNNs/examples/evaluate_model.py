@@ -81,7 +81,7 @@ trainer = GNNTrainer(
     batch_size=batch_size,
     node_block=node_block,
     dropout_rate=dropout_rate,
-    output_dir=input_dir
+    input_dir=input_dir
 )
 trainer.setup_model()
 

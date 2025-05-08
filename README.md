@@ -13,9 +13,10 @@ It supports multiple node-block models having in common a bidirectional message-
 | `ABMP+SN`   | ABMP with self-nodes                           |
 
 --------------------------------------------------------------------------------------
-**INSTALLAtion**
+**INSTALLATION**
 
- PyTorch Geometric (PyG) and its extensions require specific installation steps due to version-specific CUDA bindings. Follow the tested working environment setup below for best results using python 3.11 with GPU implementation using CUDA 12.6 and currently supported pytorch-geometric torch version (2.6)
+PyTorch Geometric (PyG) and its extensions require specific installation steps due to version-specific CUDA bindings. Follow the tested working environment setup below for best results using python 3.11 with GPU implementation using CUDA 12.6 and currently supported torch version (2.6).
+ *These versions reflect the latest tested configuration. In future releases, PyG may support newer versions of CUDA and PyTorch. Please refer to the official PyG installation guide to adapt accordingly.
 
 1. Create and activate a clean conda environment:
 
@@ -45,7 +46,8 @@ pip install pyg-lib torch_scatter torch_sparse torch_cluster torch_spline_conv \
 
 pip install torch_geometric
 
-5. Finally type:
+5. Finally, install the package locally:
 
- pip install -e .
+pip install git+https://github.com/chemdesign-accl/BMPNNs.git
+
 --------------------------------------------------------------------------------------

@@ -46,7 +46,7 @@ pip install pyg-lib torch_scatter torch_sparse torch_cluster torch_spline_conv \
 
 pip install torch_geometric
 
-5. Finally type:
+5. Finally, install the package locally:
 
  pip install -e .
 --------------------------------------------------------------------------------------

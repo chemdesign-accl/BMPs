@@ -48,5 +48,6 @@ pip install torch_geometric
 
 5. Finally, install the package locally:
 
- pip install -e .
+pip install git+https://github.com/chemdesign-accl/BMPNNs.git
+
 --------------------------------------------------------------------------------------

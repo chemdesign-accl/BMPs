@@ -18,7 +18,7 @@ setup(
         "molvs",
         "mendeleev",
         "scikit-learn",
-        "torch>=2.7.1+cu128",
+        "torch>=2.7.1",
         "torchvision>=0.21.0+cu128",
         "torchaudio>=2.7.0+cu128",
         "pyg-lib==0.4.0+pt27cu128",

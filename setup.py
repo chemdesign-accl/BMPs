@@ -18,15 +18,14 @@ setup(
         "molvs",
         "mendeleev",
         "scikit-learn",
-        "torch==2.6.0+cu126",
-        "torchvision==0.21.0+cu126",
-        "torchaudio==2.6.0+cu126",
-        "pyg-lib==0.4.0+pt26cu126",
-        "torch-geometric==2.6.1",
-        "torch_scatter==2.1.2",
-        "torch_sparse==0.6.18",
-        "torch_cluster==1.6.3",
-        "torch_spline_conv==1.2.2"
+        "torch==2.7.0+cu128",
+        "torchvision==0.21.0+cu128",
+        "torchaudio==2.7.0+cu128",
+        "pyg-lib==0.4.0+pt27cu128",
+        "torch-scatter==2.1.2+pt27cu128",
+        "torch-sparse==0.6.18+pt27cu128",
+        "torch-cluster==1.6.3+pt27cu128",
+        "torch-spline-conv==1.2.2+pt27cu128"
     ],
     python_requires='>=3.11'
 )

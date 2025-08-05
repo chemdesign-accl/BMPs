@@ -6,6 +6,9 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import f1_score, accuracy_score, confusion_matrix, ConfusionMatrixDisplay, roc_curve, auc
 from torch.utils.data import WeightedRandomSampler
 from torch_geometric.loader import DataLoader as GeometricDataLoader
+import BMPNNs
+import inspect
+print(inspect.getfile(BMPNNs))
 from BMPNNs import GNNTrainer
 from BMPNNs.data.molecular_dataset import MolecularDataset
 import logging

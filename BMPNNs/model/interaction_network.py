@@ -2,7 +2,7 @@ import torch.nn as nn
 from .blocks import EdgeBlock, GlobalBlock
 from .node_blocks import (
     BMPNodeBlock, ABMPNodeBlock, CBMPNodeBlock,
-    BMP_SNNodeBlock, ABMP_SNNodeBlock
+    BMP_SNNodeBlock, ABMP_SNNodeBlock, UMPNodeBlock
 )
 
 class InteractionNetwork(nn.Module):
@@ -22,6 +22,8 @@ class InteractionNetwork(nn.Module):
             self.node_model = BMP_SNNodeBlock(input_dim, hidden_dim, dropout_rate)
         elif variant == 'ABMP+SN':
             self.node_model = ABMP_SNNodeBlock(input_dim, edge_dim, hidden_dim, dropout_rate)
+        elif variant == 'UMP':
+            self.node_model = UMPNodeBlock(input_dim, hidden_dim, dropout_rate)
         else:
             raise ValueError(f"Unknown variant: {variant}")
 
@@ -29,9 +31,17 @@ class InteractionNetwork(nn.Module):
         src = x[edge_index[0]]
         dest = x[edge_index[1]]
         message = self.edge_model(src, dest, edge_attr)
-
         if self.variant == 'CBMP':
-            x, x_weights = self.node_model(x, edge_index, edge_attr, norm)
+            from torch_geometric.utils import degree
+            def compute_norm(edge_index, num_nodes):
+                row, col = edge_index
+                deg = degree(row, num_nodes=num_nodes)
+                deg_inv_sqrt = deg.pow(-0.5) 
+                deg_inv_sqrt[deg_inv_sqrt == float('inf')] = 0 
+                norm = deg_inv_sqrt[row] * deg_inv_sqrt[col]
+                return norm
+            norm = compute_norm(edge_index, x.size(0))
+            x, x_weights = self.node_model(x, edge_index, message, norm)
         elif self.variant in ['ABMP', 'ABMP+SN']:
             x, x_weights = self.node_model(x, edge_index, edge_attr, message)
         else: 

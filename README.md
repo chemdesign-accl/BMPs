@@ -1,6 +1,6 @@
-# BMPNNs
+# BMPs
 
-**BMPNNs** is a modular Graph Neural Network (GNN) framework designed for molecular property prediction built on the Metalayer framework (Battaglia et. al., 2018). 
+**BMPs** is a modular Graph Neural Network (GNN) framework designed for molecular property prediction built on the Metalayer framework (Battaglia et. al., 2018). 
 It supports multiple node-block models having in common a bidirectional message-passing. Options include attention mechanism applied to the message (similar to GAT), convolutional normalization, skip or include raw nodes connections.
 
 
@@ -45,6 +45,6 @@ pip install torch_geometric
 
 5. Finally, install the package locally:
 
-pip install git+https://github.com/chemdesign-accl/BMPNNs.git
+pip install git+https://github.com/chemdesign-accl/BMPs.git
 
 --------------------------------------------------------------------------------------

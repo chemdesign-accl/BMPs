@@ -17,7 +17,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 input_dir = "cross_validate_output"
 os.makedirs(input_dir, exist_ok=True)
-data = pd.read_csv('../data/Lipophilicity.csv')
+data = pd.read_csv('../BMPNNs/data/Lipophilicity.csv')
 smiles_train = data['SMILES'].tolist()
 labels_train = data['Actividad'].tolist()
 names_train = data['Title'].tolist()

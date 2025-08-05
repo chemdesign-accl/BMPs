@@ -1,0 +1,29 @@
+Metadata-Version: 2.4
+Name: BMPNNs
+Version: 0.1
+Summary: MPNNs for molecular prediction
+Author: Alma C. Castaneda-Leautaud
+Requires-Python: >=3.11
+Requires-Dist: python-dateutil
+Requires-Dist: packaging
+Requires-Dist: rdkit
+Requires-Dist: pandas
+Requires-Dist: matplotlib
+Requires-Dist: numpy
+Requires-Dist: tqdm
+Requires-Dist: Pillow
+Requires-Dist: molvs
+Requires-Dist: mendeleev
+Requires-Dist: scikit-learn
+Requires-Dist: torch>=2.7.0
+Requires-Dist: torchvision>=0.21.0
+Requires-Dist: torchaudio>=2.7.0
+Requires-Dist: pyg-lib
+Requires-Dist: torch-scatter
+Requires-Dist: torch-sparse
+Requires-Dist: torch-cluster
+Requires-Dist: torch-spline-conv
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary

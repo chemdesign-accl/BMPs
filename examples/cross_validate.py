@@ -3,6 +3,9 @@ import logging
 import os
 from BMPNNs import GNNTrainer
 import inspect
+import BMPNNs
+import inspect
+print(inspect.getfile(BMPNNs))
 print(inspect.getfile(GNNTrainer))
 logging.basicConfig(
     filename='cross_validate.log',

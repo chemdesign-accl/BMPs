@@ -39,7 +39,7 @@ input_dir = "evaluate_model_outputs"
 os.makedirs(input_dir, exist_ok=True)
 
 # === Load Data ===
-train_df = pd.read_csv('../BMPNNs/data/bace.csv')
+train_df = pd.read_csv('../BMPNNs/data/TRPA1_for_training.csv')
 eval_df = pd.read_csv('../BMPNNs/data/TRPA1_for_evaluation.csv')
 
 smiles_train = train_df['SMILES'].tolist()

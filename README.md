@@ -20,31 +20,31 @@ PyTorch Geometric (PyG) and its extensions require specific installation steps d
 
 1. Create and activate a clean conda environment:
    
-conda create -n torch_gpu python=3.11 -y
-conda activate torch_gpu
+   conda create -n torch_gpu python=3.11 -y
+   conda activate torch_gpu
 
 
 3. Install PyTorch with CUDA 12.8:
 
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+   pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
 
 3. Install specific CUDA libraries manually (if required):
 
 
-pip install --force-reinstall \
-    nvidia-cusparse-cu12==12.5.4.2 \
-    nvidia-nvjitlink-cu12==12.6.85 \
-    nvidia-cublas-cu12==12.6.4.1 \
-    nvidia-cuda-runtime-cu12==12.6.77
+   pip install --force-reinstall \
+       nvidia-cusparse-cu12==12.5.4.2 \
+       nvidia-nvjitlink-cu12==12.6.85 \
+       nvidia-cublas-cu12==12.6.4.1 \
+       nvidia-cuda-runtime-cu12==12.6.77
 
 4. Install PyG extensions (must match your CUDA + PyTorch version):
 
-pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.7.0+cu128.html
+   pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.7.0+cu128.html
 
-pip install torch_geometric
+   pip install torch_geometric
 
 5. Finally, install the package locally:
 
-pip install git+https://github.com/chemdesign-accl/BMPs.git
+   pip install git+https://github.com/chemdesign-accl/BMPs.git
 
 --------------------------------------------------------------------------------------

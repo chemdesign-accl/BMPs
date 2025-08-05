@@ -17,8 +17,8 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 import time
 start = time.time()
-train_df = pd.read_csv('../data/TRPA1_for_training.csv')
-df = pd.read_csv('../data/bace.csv', dtype={0: str}) #dummy test set
+train_df = pd.read_csv('../BMPNNs/data/TRPA1_for_training.csv')
+df = pd.read_csv('../BMPNNS/data/TRPA1_for_evaluation.csv', dtype={0: str}) #dummy test set
 
 batch_size = 155
 epochs = 150

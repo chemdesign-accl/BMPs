@@ -15,11 +15,12 @@ from rdkit.Chem import (
     AllChem, Draw, Descriptors
 )
 class MolecularDataset:
-    def __init__(self, smiles_list, names_list, labels=None):
+    def __init__(self, smiles_list, names_list, labels=None, node_block="BMP"):
         self.smiles_list = smiles_list.copy()
         self.names_list = names_list.copy()
         self.labels = labels.copy() if labels is not None else [None] * len(smiles_list)
         self.data_list = []
+        self.node_block = node_block
         self.global_dim = 0
         self.num_node_features = 0
         self.edge_dim = 0
@@ -34,6 +35,8 @@ class MolecularDataset:
         }
         self.processed_count = 0
         print(f"Number of molecules in dataset: {len(smiles_list)}")
+        print(f"Using Model: {self.node_block}")
+
         logger.info("Converting SMILES to data objects.")
         i = 0
         while i < len(self.smiles_list):
@@ -94,7 +97,7 @@ class MolecularDataset:
     def extract_features(self, mol, conf, name, smiles, label, output_dir):
         try:
             atom_features = self.get_atom_features(mol, conf)
-            edge_index, edge_attr = self.get_edge_index_and_features(mol, conf)
+            edge_index, edge_attr = self.get_edge_index_and_features(mol, conf, self.node_block)
             if edge_index.max().item() >= atom_features.size(0):
                 logger.error(f"Invalid edge index detected: {edge_index.max().item()} exceeds number of atoms {atom_features.size(0)}")
                 return None
@@ -142,8 +145,8 @@ class MolecularDataset:
         global_features = [                        
             len(Chem.FindMolChiralCenters(mol, includeUnassigned=False))/6, 
             abs(1/(10 * (Descriptors.NumHDonors(mol) / 5) + abs(Descriptors.NumHAcceptors(mol) / 10))),
-             Descriptors.NumRotatableBonds(mol)/10,
-             (Descriptors.TPSA(mol) + Descriptors.MolLogP(mol))/145,
+            Descriptors.NumRotatableBonds(mol)/10,
+            (Descriptors.TPSA(mol) + Descriptors.MolLogP(mol))/145,
             Descriptors.FractionCSP3(mol),
             self.calculate_radius_of_gyration(mol, conf)/5,
             ]
@@ -236,6 +239,7 @@ class MolecularDataset:
             atomic_num = atom.GetAtomicNum()
             props = self.get_cached_element_props(atomic_num)
             atom_feature = [
+                (atomic_num - 1)/178,
                 self.calculate_buried_volume(mol, conf, atom.GetIdx()),
                 self.hybridization_dict.get(atom.GetHybridization(), 0),
                 props["electronegativity"],
@@ -262,7 +266,7 @@ class MolecularDataset:
             return 0.85
         else:
             return 1.0          
-    def get_edge_index_and_features(self, mol, conf):
+    def get_edge_index_and_features(self, mol, conf, node_block):
         edge_index = []
         edge_attr = []
         try:
@@ -279,8 +283,14 @@ class MolecularDataset:
                     1 if bond.GetIsConjugated() else 0,  
                     self.get_ring_size_feature(bond)  
                 ]
-                edge_index.append([i, j])
-                edge_attr.append(edge_feature)
+                if node_block == "UMP":
+                    edge_index.append([i, j])
+                    edge_index.append([j, i])
+                    edge_attr.append(edge_feature)
+                    edge_attr.append(edge_feature)  
+                else:
+                    edge_index.append([i, j])
+                    edge_attr.append(edge_feature)
 
         except Exception as e:
             print(f"Error processing bond features for molecule: {e}")

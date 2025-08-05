@@ -38,7 +38,7 @@ node_block = "ABMP"
 input_dir = "evaluate_model_outputs"
 os.makedirs(input_dir, exist_ok=True)
 
-dataset = pd.read_csv('../data/bace.csv')
+dataset = pd.read_csv('../BMPNNs/data/bace.csv')
 smiles = dataset['SMILES'].tolist()
 labels = dataset['Actividad'].tolist()
 names = dataset['Title'].tolist()

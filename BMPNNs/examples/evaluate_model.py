@@ -6,6 +6,10 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import f1_score, accuracy_score, confusion_matrix, ConfusionMatrixDisplay, roc_curve, auc
 from torch.utils.data import WeightedRandomSampler
 from torch_geometric.loader import DataLoader as GeometricDataLoader
+import BMPNNs
+import inspect
+print(inspect.getfile(BMPNNs))
+import time
 from BMPNNs import GNNTrainer
 from BMPNNs.data.molecular_dataset import MolecularDataset
 import logging
@@ -24,19 +28,19 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 os.makedirs("node_outputs_raw", exist_ok=True)
 
-# Config
+threshold = 0
 batch_size = 32
-epochs = 20
-hidden_channels = 64
-dropout_rate = 0.5
-lr = 1e-3
+epochs = 50
+hidden_channels = 250
+dropout_rate = 0.25
+lr= 0.003
 node_block = "ABMP"
 input_dir = "evaluate_model_outputs"
 os.makedirs(input_dir, exist_ok=True)
 
 # === Load Data ===
-train_df = pd.read_csv('../data/TRPA1_for_training.csv')
-eval_df = pd.read_csv('../data/TRPA1_for_evaluation.csv')
+train_df = pd.read_csv('../BMPNNs/data/bace.csv')
+eval_df = pd.read_csv('../BMPNNs/data/TRPA1_for_evaluation.csv')
 
 smiles_train = train_df['SMILES'].tolist()
 labels_train = train_df['Actividad'].tolist()
@@ -47,8 +51,8 @@ labels_eval = eval_df['Actividad'].tolist()
 names_eval = eval_df['Title'].tolist()
 
 # === Dataset Preparation ===
-train_dataset = MolecularDataset(smiles_train, names_train, labels_train)
-eval_dataset = MolecularDataset(smiles_eval, names_eval, labels_eval)
+train_dataset = MolecularDataset(smiles_train, names_train, labels_train, node_block)
+#eval_dataset = MolecularDataset(smiles_eval, names_eval, labels_eval)
 
 global_dim = train_dataset.global_dim
 edge_dim = train_dataset.edge_dim
@@ -66,7 +70,7 @@ samples_weights = weights[successful_labels_train]
 sampler = WeightedRandomSampler(samples_weights, num_samples=len(samples_weights), replacement=True)
 
 train_loader = GeometricDataLoader(train_dataset, batch_size=batch_size, sampler=sampler, drop_last=True)
-eval_loader = GeometricDataLoader(eval_dataset, batch_size=batch_size, shuffle=False)
+#eval_loader = GeometricDataLoader(eval_dataset, batch_size=batch_size, shuffle=False)
 
 # === Trainer Setup ===
 trainer = GNNTrainer(
@@ -83,12 +87,23 @@ trainer = GNNTrainer(
     dropout_rate=dropout_rate,
     input_dir=input_dir
 )
+print(f"Using trainer: {type(trainer).__name__}")
+
 trainer.setup_model()
 
 # === Train Model ===
+start_time = time.time()  # Start full training timer
+
 for epoch in range(epochs):
+    epoch_start = time.time()  # Start epoch timer
     loss = trainer.train(train_loader)
-    print(f"Epoch {epoch+1}/{epochs}, Loss: {loss:.4f}")
+    epoch_time = time.time() - epoch_start  # Time for this epoch
+
+    print(f"Epoch {epoch+1}/{epochs}, Loss: {loss:.4f}, Time: {epoch_time:.2f}s")
+
+total_time = time.time() - start_time  # Total training time
+print(f"\nTotal training time: {total_time:.2f}s")
+"""
 
 # === Evaluate ===
 _, _, _, _, _, all_targets, all_preds, compound_names, all_preds_binarized = trainer.evaluate(eval_loader, generate_images=True)
@@ -119,3 +134,4 @@ plt.ylabel('True Positive Rate')
 plt.title('ROC Curve for Blind Test Set')
 plt.legend(loc="lower right")
 plt.savefig(os.path.join(input_dir, "roc_auc_blind_set.png"))
+"""

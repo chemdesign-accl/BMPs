@@ -27,17 +27,23 @@ PyTorch Geometric (PyG) and its extensions require specific installation steps d
 ```
 
 2. Install PyTorch with CUDA 12.8:
+```bash
 
    pip3 install torch torchvision
+```
 
 4. Install PyG extensions (must match your CUDA + PyTorch version):
+```bash
 
    pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.7.0+cu128.html
 
    pip install torch_geometric
+```
 
 5. Finally, install the package locally:
+```bash
 
    pip install git+https://github.com/chemdesign-accl/BMPNNs.git
+```
 
 --------------------------------------------------------------------------------------

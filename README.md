@@ -35,9 +35,10 @@ PyTorch Geometric (PyG) and its extensions require specific installation steps d
 4. Install PyG extensions (must match your CUDA + PyTorch version):
 ```bash
 
-   pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.7.0+cu128.html
-
    pip install torch_geometric
+   
+   # Optional dependencies:
+   pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.8.0+cu128.html
 ```
 
 5. Finally, install the package locally:

@@ -46,5 +46,11 @@ PyTorch Geometric (PyG) and its extensions require specific installation steps d
 
    pip install git+https://github.com/chemdesign-accl/BMPNNs.git
 ```
-
+   or for development: 
+```bash
+   
+git clone git@github.com:chemdesign-accl//BMPNNs.git
+cd BMPNNs/
+pip install -e .
+```
 --------------------------------------------------------------------------------------

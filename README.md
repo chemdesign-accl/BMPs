@@ -1,56 +1,113 @@
-# BMPNNs
+# BMPs
 
-**BMPNNs** is a modular Graph Neural Network (GNN) framework designed for molecular property prediction built on the Metalayer framework (Battaglia et. al., 2018). 
-It supports multiple node-block models having in common a bidirectional message-passing. Options include attention mechanism applied to the message (similar to GAT), convolutional normalization, skip or include raw nodes connections.
+This repository contains two installable versions of the bidirectional
+message-passing molecular graph neural network codebase.
 
+## Repository Layout
 
-| Node-Models | Description                                    |
-| ----------- | ---------------------------------------------- |
-| `BMP`       | Base message passing without self-nodes        |
-| `ABMP`      | Attention-enhanced message passing             |
-| `CBMP`      | Convolutional-normalization message passing    |
-| `BMP+SN`    | BMP with self-nodes                            |
-| `ABMP+SN`   | ABMP with self-nodes                           |
-
---------------------------------------------------------------------------------------
-**INSTALLATION**
-
-PyTorch Geometric (PyG) and its extensions require specific installation steps due to version-specific CUDA bindings. Follow the tested working environment setup below for best results using python 3.11 with GPU implementation using CUDA 12.8 and currently supported torch version (2.8).
- *These versions reflect the latest tested configuration. In future releases, PyG may support newer versions of CUDA and PyTorch. Please refer to the official PyG installation guide to adapt accordingly.
-
-1. Create and activate a clean conda environment:
-```bash
-
-   conda create -n torch_gpu python=3.11 -y
-
-   conda activate torch_gpu
+```text
+BMPs/
+  README.md
+  BMPs.V1/
+    README.md
+    setup.py
+    BMPNNs/
+  BMPs.V2/
+    README.md
+    setup.py
+    BMPs/
 ```
 
-2. Install PyTorch with CUDA 12.8:
-```bash
+## Which Version Should I Use?
 
-   pip3 install torch torchvision
+Use `BMPs.V1` if you need the original package associated with the Digital
+Discovery work. It installs the Python package `bmpnns` and is imported as
+`BMPNNs`.
+
+Use `BMPs.V2` if you need the updated package with reusable preprocessing,
+stereoisomer/conformer updates, configurable normalization, message-passing
+depth comparison, and revised atom-importance scoring. It installs the Python
+package `BMPs` and is imported as `BMPs`.
+
+Install one version per Python environment when possible. This keeps PyTorch,
+PyTorch Geometric, and local editable installs easy to reason about.
+
+## Install V1
+
+Create and activate a clean environment:
+
+```bash
+conda create -n bmps_v1 python=3.11 -y
+conda activate bmps_v1
 ```
 
-4. Install PyG extensions (must match your CUDA + PyTorch version):
-```bash
+Install PyTorch and PyTorch Geometric dependencies following the version and
+CUDA build appropriate for your machine. The V1 README contains the tested
+setup notes.
 
-   pip install torch_geometric
-   
-   # Optional dependencies:
-   pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-2.8.0+cu128.html
+Install directly from this repository:
+
+```bash
+pip install "git+https://github.com/chemdesign-accl/BMPs.git#subdirectory=BMPs.V1"
 ```
 
-5. Finally, install the package locally:
-```bash
+Or install from a local clone in editable mode:
 
-   pip install git+https://github.com/chemdesign-accl/BMPNNs.git
-```
-   or for development: 
 ```bash
-   
-git clone git@github.com:chemdesign-accl//BMPNNs.git
-cd BMPNNs/
+git clone https://github.com/chemdesign-accl/BMPs.git
+cd BMPs/BMPs.V1
 pip install -e .
 ```
---------------------------------------------------------------------------------------
+
+Check the installation:
+
+```bash
+python -c "from BMPNNs import GNNTrainer; print('BMPs V1 installed')"
+```
+
+## Install V2
+
+Create and activate a clean environment:
+
+```bash
+conda create -n bmps_v2 python=3.11 -y
+conda activate bmps_v2
+```
+
+Install PyTorch and PyTorch Geometric dependencies following the version and
+CUDA build appropriate for your machine. The V2 README contains the tested
+setup notes.
+
+Install directly from this repository:
+
+```bash
+pip install "git+https://github.com/chemdesign-accl/BMPs.git#subdirectory=BMPs.V2"
+```
+
+Or install from a local clone in editable mode:
+
+```bash
+git clone https://github.com/chemdesign-accl/BMPs.git
+cd BMPs/BMPs.V2
+pip install -e .
+```
+
+Check the installation:
+
+```bash
+python -c "from BMPs import GNNTrainer; print('BMPs V2 installed')"
+```
+
+## Version-Specific Documentation
+
+Each version keeps its own README, setup file, examples, data, and package
+source:
+
+- `BMPs.V1/README.md`: original V1 package notes and installation details.
+- `BMPs.V2/README.md`: V2 package notes, update summary, examples, and
+  installation details.
+
+## Citation
+
+If you use this code, please cite the associated Digital Discovery publication:
+Digital Discovery, 2025, 4, 3320-3338.

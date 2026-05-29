@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+build/
+dist/
+.eggs/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Test and coverage output
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Notebook and editor noise
+.ipynb_checkpoints/
+.vscode/
+.idea/
+.~lock.*#
+
+# Runtime logs and generated outputs
+*.log
+BMPs.V1/BMPNNs/examples/molecule_images/
+BMPs.V1/BMPNNs/examples/*_outputs/
+BMPs.V1/BMPNNs/examples/output/
+BMPs.V2/BMPs/examples/molecule_images/
+BMPs.V2/BMPs/examples/*_outputs/
+BMPs.V2/BMPs/examples/evaluate_outputs/
+BMPs.V2/BMPs/examples/output/
+BMPs.V2/BMPs/examples/node_outputs_raw/
+BMPs.V2/BMPs/examples/*.png
